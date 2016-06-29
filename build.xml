@@ -1,19 +1,15 @@
 <project name="ant-my-example" basedir = ".">
 
-    <property name="src" location="src"/>
+    <property name="src" location="src/enterprise/module2/generics"/>
     <property name="build" location="build"/>
     <property name="dist" location="dist"/>
-    <property name="test.src" location="test"/>
+    <property name="test.src" location="test/enterprise/module2/generics"/>
     <property name="test.build" location="test.build"/>
     <property name="test.report" location="test-report"/>
     <property name="lib" location="lib"/>
-    <property name="classes" value="./classes" />
-    <property name="test.class.name" value="enterprise.module3_2.square.sum.PhaserImplTest" />
+    <property name="test.class.name" value="GenericTest"/>
 
-
-
-
-    <target name="init">
+    <target name="init" depends="clean">
         <mkdir dir = "${build}"/>
         <mkdir dir = "${test.build}"/>
         <mkdir dir = "${test.report}"/>
@@ -22,7 +18,6 @@
 
     <path id="test.classpath">
         <pathelement location="${lib}/junit-4.12.jar"/>
-        <pathelement location="${classes}" />
         <fileset dir="${lib}">
             <include name="**/*.jar"/>
         </fileset>
@@ -30,12 +25,11 @@
     </path>
 
     <target name="compile" depends="init">
-        <javac srcdir="${src}" destdir="${build}" source="1.8" target="1.8"/>
+        <javac srcdir="${src}" destdir="${build}" source="1.8" target="1.8" includeantruntime="false"/>
     </target>
 
-
     <target name="compile.test" depends="compile">
-        <javac srcdir = "${test.src}" testdir="${test.build}" source="1.8" target="1.8">
+        <javac srcdir = "${test.src}" destdir="${test.build}" source="1.8" target="1.8"  includeantruntime="false">
             <classpath>
                 <pathelement location="${build}"/>
                 <path refid="test.classpath"/>
@@ -43,45 +37,18 @@
         </javac>
     </target>
 
-    <taskdef name="junit" classname="org.junit.Test">
-        <classpath>
-            <path refid="test.classpath"/>
-        </classpath>
-    </taskdef>
-
-    <!--<target name="test" depends="compile.test">-->
-        <!--<junit printsummary="yes" haltonfailure="yes">-->
-            <!--<classpath>-->
-                    <!--<pathelement location="${test.build}"/>-->
-                    <!--<pathelement path="${java.class.path}"/>-->
-            <!--</classpath>-->
-
-            <!--<formatter type="plain"/>-->
-
-            <!--<test name="enterprise" haltonfailure="no" outfile="result">-->
-                <!--<formatter type="xml"/>-->
-            <!--</test>-->
-
-            <!--<batchtest fork="yes" todir="${reports.tests}">-->
-                <!--<fileset dir="${src.tests}">-->
-                    <!--<include name="**/*Test*.java"/>-->
-                    <!--<exclude name="**/AllTests.java"/>-->
-                <!--</fileset>-->
-            <!--</batchtest>-->
-        <!--</junit>-->
-    <!--</target>-->
     <target name="test" depends="compile.test">
-        <junit outputDir="${test.report}">
-            <!--<test name="${test.class.name}"/>-->
-            <!--<formatter type="plain"/>-->
-            <!--<formatter type="plain" outfile="false" />-->
-            <!--<classpath refid="test.classpath"/>-->
+        <junit printsummary="yes" haltonfailure="no">
             <classpath>
-                <pathelement location="${test.build}"/>
-                <pathelement location="${build}"/>
-                <path refid="test.classpath"/>
+                    <pathelement location="${test.build}"/>
+                    <pathelement location="${build}"/>
+                    <path refid="test.classpath"/>
             </classpath>
-            <xmlfileset dir="${test.src}" includes="junit.xml"/>
+
+            <test name="enterprise.module2.generics.GenericTest" haltonfailure="no" outfile="result">
+                <formatter type="xml"/>
+            </test>
+
         </junit>
     </target>
 
@@ -89,7 +56,7 @@
         <jar destfile="${dist}/executable.jar">
             <fileset dir="${build}"/>
             <manifest>
-                <attribute name="Main-Class" value="Bootstrap"/>
+                <attribute name="Main-Class" value="enterprise.module2.generics.Main"/>
             </manifest>
         </jar>
     </target>

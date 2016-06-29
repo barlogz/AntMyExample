@@ -1,12 +1,12 @@
 <suite name="Suite1">
-    <test name="Executor Test">
+    <test name="Test">
         <!--<packages>-->
             <!--<package name="enterprise"/>-->
         <!--</packages>-->
         <classes>
             <class name="enterprise.module3_2.square.sum.PhaserImplTest"/>
-            <!--<class name="enterprise.module3_1.semaphore.SemaphoreImplTest"/>-->
-            <!--<class name="enterprise.module2.generics.GenericTest"/>-->
+            <class name="enterprise.module3_1.semaphore.SemaphoreImplTest"/>
+            <class name="enterprise.module2.generics.GenericTest"/>
         </classes>
     </test>
 </suite>
