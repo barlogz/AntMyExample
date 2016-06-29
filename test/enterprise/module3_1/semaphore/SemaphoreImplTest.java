@@ -15,7 +15,7 @@ public class SemaphoreImplTest {
         }
 
         while (WorkerForAcquire.counter < threads) {
-            Thread.sleep(3000);
+            Thread.sleep(500);
         }
     }
 
@@ -26,7 +26,7 @@ public class SemaphoreImplTest {
         public void run() {
             try {
                 semaphore.acquire();
-                Thread.sleep(1000);
+                Thread.sleep(500);
                 semaphore.release();
                 counter++;
             } catch (InterruptedException e) {
@@ -46,7 +46,7 @@ public class SemaphoreImplTest {
         }
 
         while (WorkerForParametrizedAcquire.counter < threads)
-            Thread.sleep(3000);
+            Thread.sleep(500);
     }
 
     static class WorkerForParametrizedAcquire implements Runnable {
@@ -57,7 +57,7 @@ public class SemaphoreImplTest {
         public void run() {
             try {
                 semaphore.acquire(acquireToDo);
-                Thread.sleep(3000);
+                Thread.sleep(500);
                 semaphore.release(acquireToDo);
                 counter++;
             } catch (InterruptedException e) {

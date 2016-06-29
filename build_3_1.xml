@@ -1,13 +1,13 @@
 <project name="ant-my-example" basedir = ".">
 
-    <property name="src" location="src/enterprise/module2/generics"/>
-    <property name="build" location="build"/>
-    <property name="dist" location="dist"/>
-    <property name="test.src" location="test/enterprise/module2/generics"/>
-    <property name="test.build" location="test.build"/>
-    <property name="test.report" location="test-report"/>
+    <property name="src" location="src/enterprise/module3_1/semaphore"/>
+    <property name="build" location="build_3_1"/>
+    <property name="dist" location="dist_3_1"/>
+    <property name="test.src" location="test/enterprise/module3_1/semaphore"/>
+    <property name="test.build" location="test.build_3_1"/>
+    <property name="test.report" location="test-report_3_1"/>
     <property name="lib" location="lib"/>
-    <property name="test.class.name" value="GenericTest"/>
+    <property name="test.class.name" value="SemaphoreImplTest"/>
 
     <target name="init" depends="clean">
         <mkdir dir = "${build}"/>
@@ -45,7 +45,7 @@
                     <path refid="test.classpath"/>
             </classpath>
 
-            <test name="enterprise.module2.generics.GenericTest" haltonfailure="no" outfile="result">
+            <test name="enterprise.module3_1.semaphore.SemaphoreImplTest" haltonfailure="no" outfile="result_tests_module_3_1" todir="${test.report}">
                 <formatter type="xml"/>
             </test>
 
@@ -53,10 +53,10 @@
     </target>
 
     <target name="dist" depends="test">
-        <jar destfile="${dist}/executable.jar">
+        <jar destfile="${dist}/executable_module_3_1.jar">
             <fileset dir="${build}"/>
             <manifest>
-                <attribute name="Main-Class" value="enterprise.module2.generics.Main"/>
+                <attribute name="Main-Class" value="enterprise.module3_1.semaphore.Runner"/>
             </manifest>
         </jar>
     </target>
@@ -66,6 +66,7 @@
         <delete dir="${dist}"/>
         <delete dir = "${test.build}"/>
         <delete dir = "${test.report}"/>
+        <delete file = "result_tests_module_3_1.xml"/>
     </target>
 
 </project>
